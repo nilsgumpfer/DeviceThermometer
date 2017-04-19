@@ -30,8 +30,8 @@ public class Controller {
     private Button btn_stoppeServer;
     @FXML
     private TextArea ta_srvlog;
-    @FXML
-    private Label lbl_heizungtemp;
+    /*@FXML
+    private Label lbl_heizungtemp;*/
     @FXML
     private Button btn_setTemp;
 
@@ -113,7 +113,7 @@ public class Controller {
 
         if(result.isPresent() == true && !result.get().equals("")) {
             Double newTemp = Double.parseDouble(result.get());
-            lbl_heizungtemp.setText(result.get() + "°C");
+            //lbl_heizungtemp.setText(result.get() + "°C");
             System.out.println(newTemp);
             thermo1.setTemperatureSrv(newTemp);
         }
