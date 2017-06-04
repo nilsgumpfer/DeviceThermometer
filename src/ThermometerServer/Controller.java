@@ -1,10 +1,12 @@
 package ThermometerServer;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.rmi.RemoteException;
 import java.util.Optional;
@@ -66,13 +68,19 @@ public class Controller {
             thermo1 = new Thermometer();
         }
 
-        /*ps = new PrintStream(new OutputStream() {
+        ps = new PrintStream(new OutputStream() {
+
             @Override
             public void write(int i) throws IOException {
-                ta_srvlog.appendText(String.valueOf((char) i));
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        ta_srvlog.appendText(String.valueOf((char) i));
+                    }
+                });
             }
         });
-        System.setOut(ps);*/
+        System.setOut(ps);
 
         /*Server wird gestartet*/
 
