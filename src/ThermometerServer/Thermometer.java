@@ -4,6 +4,9 @@ import ThermometerServer.interfaces.ThermometerClientInterface;
 import ThermometerServer.interfaces.ThermometerServerInterface;
 import ThermometerServer.observer.AObservable;
 import ThermometerServer.observer.IObserver;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.io.ByteArrayOutputStream;
 import java.net.InetAddress;
@@ -31,6 +34,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
     public int serverport = 1099;
     public Registry rmiRegistry;
     private Double temperature = 0.00;
+    public StringProperty ThermometerTemperature = new SimpleStringProperty("0 °C");
 
     public Thermometer() {
 
@@ -50,10 +54,20 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
 
    public void setTemperatureSrv (double new_temp){
         temperature = new_temp;
+        ThermometerTemperature.set(String.valueOf(temperature)+ " °C");
+        notifyObservers(this.temperature);
    }
 
     public void setTemperature (double new_temp, ThermometerClientInterface c){
         temperature = new_temp;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                ThermometerTemperature.set(String.valueOf(temperature) + " °C");
+            }
+        });
+
+        notifyObservers(this.temperature);
     }
 
     public String startServer(String thermometername) throws RemoteException {

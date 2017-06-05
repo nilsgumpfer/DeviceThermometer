@@ -32,8 +32,8 @@ public class Controller {
     private Button btn_stoppeServer;
     @FXML
     private TextArea ta_srvlog;
-    /*@FXML
-    private Label lbl_heizungtemp;*/
+    @FXML
+    private Label lbl_currentTemp;
     @FXML
     private Button btn_setTemp;
 
@@ -88,6 +88,7 @@ public class Controller {
         lbl_Serverip.setText(thermo1.getServerIP());
         lbl_Servername.setText(thermo1.thermometername);
         lbl_Serverstatus.setText(thermo1.serverstatus);
+        lbl_currentTemp.textProperty().bind(thermo1.ThermometerTemperature);
 
         StringBuilder sb = new StringBuilder();
         sb.append("");

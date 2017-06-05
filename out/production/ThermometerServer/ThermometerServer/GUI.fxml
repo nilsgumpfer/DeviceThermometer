@@ -34,8 +34,17 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btn_setTemp" layoutX="454.0" layoutY="73.0" mnemonicParsing="false" onAction="#BTNSetTemp" text="Set Temperature" />
-                        <Button fx:id="btn_getTemp" layoutX="454.0" layoutY="98.0" mnemonicParsing="false" onAction="#BTNGetTemp" text="Get Temperature" />
+                        <Button fx:id="btn_setTemp" layoutX="240.0" layoutY="88.0" mnemonicParsing="false" onAction="#BTNSetTemp" text="Set Temperature" />
+                        <Label layoutX="181.0" layoutY="59.0" text="Current Temperature:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbl_currentTemp" layoutX="355.0" layoutY="58.0" text="-">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
               </content>
             </Tab>
