@@ -34,7 +34,6 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btn_setTemp" layoutX="240.0" layoutY="88.0" mnemonicParsing="false" onAction="#BTNSetTemp" text="Set Temperature" />
                         <Label layoutX="181.0" layoutY="59.0" text="Current Temperature:">
                            <font>
                               <Font size="18.0" />

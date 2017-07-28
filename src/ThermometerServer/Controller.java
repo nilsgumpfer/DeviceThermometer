@@ -86,7 +86,7 @@ public class Controller {
 
         lbl_srvmsg.setText(thermo1.startServer(lbl_Servername.getText()));
         lbl_Serverip.setText(thermo1.getServerIP());
-        lbl_Servername.setText(thermo1.thermometername);
+        lbl_Servername.setText(thermo1.genericName);
         lbl_Serverstatus.setText(thermo1.serverstatus);
         lbl_currentTemp.textProperty().bind(thermo1.ThermometerTemperature);
 
@@ -111,34 +111,5 @@ public class Controller {
             btn_stoppeServer.setDisable(true);
             btn_starteServer.setDisable(false);
         }
-    }
-
-    public void BTNSetTemp(ActionEvent event){
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Temperatur einstellen");
-        dialog.setHeaderText("Temperatur des Thermometers einstellen");
-        dialog.setContentText("Bitte Temperatur der Heizung einstellen:");
-        Optional<String> result = dialog.showAndWait();
-
-        if(result.isPresent() == true && !result.get().equals("")) {
-            Double newTemp = Double.parseDouble(result.get());
-            //lbl_heizungtemp.setText(result.get() + "°C");
-            System.out.println(newTemp);
-            thermo1.setTemperatureSrv(newTemp);
-        }
-        else{
-            return;
-        }
-    }
-
-    public void BTNGetTemp(ActionEvent event)throws RemoteException{
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information");
-        alert.setHeaderText("Aktuelle Temperatur des Thermometers");
-        String aktuelleTemp = String.valueOf(thermo1.getTemperatureSrv());
-
-        alert.setContentText(aktuelleTemp);
-
-        alert.showAndWait();
     }
 }

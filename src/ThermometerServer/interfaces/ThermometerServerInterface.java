@@ -1,6 +1,9 @@
 package ThermometerServer.interfaces;
 
 import ThermometerServer.observer.AObservable;
+import de.thm.smarthome.global.beans.ActionModeBean;
+import de.thm.smarthome.global.beans.ManufacturerBean;
+import de.thm.smarthome.global.beans.ModelVariantBean;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -10,8 +13,11 @@ import java.rmi.RemoteException;
  */
 public interface ThermometerServerInterface extends Remote {
 
-    public String getName(ThermometerClientInterface c) throws RemoteException;
-    public double getTemperature(ThermometerClientInterface c) throws RemoteException;
-    public void setTemperature (double new_temp, ThermometerClientInterface c) throws RemoteException;
-    //public void update(AObservable o, Object change, ThermometerClientInterface c);
+    double getTemperature() throws RemoteException;
+    ModelVariantBean getModelVariant() throws RemoteException;
+    ManufacturerBean getManufacturer() throws RemoteException;
+    ActionModeBean getActionMode() throws RemoteException;
+    String getGenericName() throws RemoteException;
+    String getSerialNumber() throws RemoteException;
+    void setGenericName(String new_genericName) throws RemoteException;
 }
