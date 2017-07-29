@@ -39,7 +39,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
     private ModelVariantBean modelVariant;
     private ManufacturerBean manufacturer;
     private ActionModeBean actionMode;
-    public String genericName;
+    public String genericName = "SmartHomeAPI";
     private String serialNumber;
 
 
@@ -71,7 +71,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
         notifyObservers(this.temperature);
     }*/
 
-    public String startServer(String thermometername) throws RemoteException {
+    public String startServer() throws RemoteException {
         ThermometerServerInterface stub = (ThermometerServerInterface) UnicastRemoteObject.exportObject(this, 0);
         rmiRegistry = LocateRegistry.createRegistry(serverport);
         try {
@@ -84,8 +84,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
             RemoteServer.setLog(System.out);
             //System.out.println(srvlog.toString());
             /*Bindet den Server an die folgende Adresse*/
-            Naming.rebind("//127.0.0.1/"+thermometername, this);
-            this.genericName = thermometername;
+            Naming.rebind("//127.0.0.1/"+genericName, this);
             this.serverstatus = "Gestartet";
             return "Server ist gestartet!";
 
