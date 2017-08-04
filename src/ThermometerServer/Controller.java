@@ -64,9 +64,9 @@ public class Controller {
         if(thermo1 == null){
             thermo1 = new Thermometer();
         }
-        else{
+       /* else{
             thermo1 = new Thermometer();
-        }
+        }*/
 
         ps = new PrintStream(new OutputStream() {
 

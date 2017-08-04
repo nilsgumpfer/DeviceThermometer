@@ -1,10 +1,9 @@
 package ThermometerServer;
 
-import ThermometerServer.interfaces.ThermometerClientInterface;
 import ThermometerServer.interfaces.ThermometerServerInterface;
-import ThermometerServer.observer.AObservable;
-import ThermometerServer.observer.IObserver;
 import de.thm.smarthome.global.beans.ActionModeBean;
+import de.thm.smarthome.global.observer.AObservable;
+import de.thm.smarthome.global.observer.IObserver;
 import de.thm.smarthome.global.beans.ManufacturerBean;
 import de.thm.smarthome.global.beans.ModelVariantBean;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,17 +29,20 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Thermometer extends AObservable implements IObserver, ThermometerServerInterface {
 
-    public String serverstatus = null;
-    public int serverport = 1099;
-    public Registry rmiRegistry;
-
-
+    /*Attribute/Beans*/
     private Double temperature = 20.00;
     private ModelVariantBean modelVariant;
     private ManufacturerBean manufacturer;
     private ActionModeBean actionMode;
     public String genericName = "SmartHomeAPI";
     private String serialNumber;
+
+    /*Variable*/
+    public String serverstatus = null;
+    public int serverport = 1099;
+    public Registry rmiRegistry;
+    private String serverIP;
+    private ThermometerServerInterface stub = null;
 
 
     public StringProperty ThermometerTemperature = new SimpleStringProperty(String.valueOf(temperature) + "°C");
@@ -72,7 +74,13 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
     }*/
 
     public String startServer() throws RemoteException {
-        ThermometerServerInterface stub = (ThermometerServerInterface) UnicastRemoteObject.exportObject(this, 0);
+
+        serverIP = getServerIP();
+        System.setProperty("java.rmi.server.hostname", serverIP);
+
+        if(stub == null) {
+            stub = (ThermometerServerInterface) UnicastRemoteObject.exportObject(this, 0);
+        }
         rmiRegistry = LocateRegistry.createRegistry(serverport);
         try {
             /*if (System.getSecurityManager() == null) {
@@ -90,14 +98,14 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
 
 
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            System.out.print(e.toString());
             return "Fehler beim Starten des Servers!";
         }
 
     }
 
     @Override
-    public void update(AObservable o, Object change) {
+    public void update(Object o, Object change) {
 
     }
     public String getServerIP() {
@@ -109,8 +117,8 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
 
         } catch (UnknownHostException e) {
 
-            e.printStackTrace();
-            return null;
+            System.out.print(e.toString());
+            return "0.0.0.0";
         }
     }
 
@@ -129,14 +137,14 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
 
         } catch (NoSuchObjectException e)
         {
-            e.printStackTrace();
+            System.out.print(e.toString());
             return "Fehler beim Stoppen des Servers!";
         } catch (NotBoundException e)
         {
-            e.printStackTrace();
+            System.out.print(e.toString());
             return "Fehler beim Stoppen des Servers!";
         } catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.print(e.toString());
             return "Fehler beim Stoppen des Servers!";
         }
 

@@ -1,6 +1,5 @@
 package ThermometerServer.interfaces;
 
-import ThermometerServer.observer.AObservable;
 import de.thm.smarthome.global.beans.ActionModeBean;
 import de.thm.smarthome.global.beans.ManufacturerBean;
 import de.thm.smarthome.global.beans.ModelVariantBean;
