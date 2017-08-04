@@ -3,7 +3,6 @@ package de.thm.smarthome.global.observer;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 public abstract class AObservable {
     private List<Object> attachedObservers = new ArrayList<>();
