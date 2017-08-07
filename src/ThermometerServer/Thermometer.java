@@ -1,11 +1,13 @@
 package ThermometerServer;
 
+import ThermometerServer.interfaces.ThermometerClientInterface;
 import ThermometerServer.interfaces.ThermometerServerInterface;
 import de.thm.smarthome.global.beans.ActionModeBean;
 import de.thm.smarthome.global.observer.AObservable;
 import de.thm.smarthome.global.observer.IObserver;
 import de.thm.smarthome.global.beans.ManufacturerBean;
 import de.thm.smarthome.global.beans.ModelVariantBean;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -61,7 +63,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
         notifyObservers(this.temperature);
    }*/
 
-    /*public void setTemperature (double new_temp, ThermometerClientInterface c){
+    public void setTemperature (double new_temp){
         temperature = new_temp;
         Platform.runLater(new Runnable() {
             @Override
@@ -71,7 +73,8 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
         });
 
         notifyObservers(this.temperature);
-    }*/
+    }
+
 
     public String startServer() throws RemoteException {
 
