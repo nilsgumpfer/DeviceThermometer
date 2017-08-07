@@ -47,7 +47,7 @@
                         </Label>
                         <ButtonBar layoutX="144.0" layoutY="88.0" prefHeight="43.0" prefWidth="171.0">
                           <buttons>
-                            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="137.0" text="Set Temperature" />
+                            <Button mnemonicParsing="false" onAction="#BTNSetTemp" prefHeight="26.0" prefWidth="137.0" text="Set Temperature" />
                           </buttons>
                         </ButtonBar>
                      </children></AnchorPane>

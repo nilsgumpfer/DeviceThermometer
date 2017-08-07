@@ -3,6 +3,8 @@ package ThermometerServer;
 import ThermometerServer.interfaces.ThermometerClientInterface;
 import ThermometerServer.interfaces.ThermometerServerInterface;
 import de.thm.smarthome.global.beans.ActionModeBean;
+import de.thm.smarthome.global.beans.MeasureBean;
+import de.thm.smarthome.global.enumeration.EUnitOfMeasurement;
 import de.thm.smarthome.global.observer.AObservable;
 import de.thm.smarthome.global.observer.IObserver;
 import de.thm.smarthome.global.beans.ManufacturerBean;
@@ -32,7 +34,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class Thermometer extends AObservable implements IObserver, ThermometerServerInterface {
 
     /*Attribute/Beans*/
-    private Double temperature = 20.00;
+    private MeasureBean temperature = new MeasureBean(20.0, EUnitOfMeasurement.TEMPERATURE_DEGREESCELSIUS);
     private ModelVariantBean modelVariant;
     private ManufacturerBean manufacturer;
     private ActionModeBean actionMode;
@@ -64,7 +66,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
    }*/
 
     public void setTemperature (double new_temp){
-        temperature = new_temp;
+        temperature = new MeasureBean(new_temp, temperature.getUnitOfMeasurement_Enum());
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -154,7 +156,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
     }
 
     @Override
-    public double getTemperature() throws RemoteException {
+    public MeasureBean getTemperature() throws RemoteException {
         return temperature;
     }
 

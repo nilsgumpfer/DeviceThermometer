@@ -2,6 +2,7 @@ package ThermometerServer.interfaces;
 
 import de.thm.smarthome.global.beans.ActionModeBean;
 import de.thm.smarthome.global.beans.ManufacturerBean;
+import de.thm.smarthome.global.beans.MeasureBean;
 import de.thm.smarthome.global.beans.ModelVariantBean;
 
 import java.rmi.Remote;
@@ -12,7 +13,7 @@ import java.rmi.RemoteException;
  */
 public interface ThermometerServerInterface extends Remote {
 
-    double getTemperature() throws RemoteException;
+    MeasureBean getTemperature() throws RemoteException;
     ModelVariantBean getModelVariant() throws RemoteException;
     ManufacturerBean getManufacturer() throws RemoteException;
     ActionModeBean getActionMode() throws RemoteException;

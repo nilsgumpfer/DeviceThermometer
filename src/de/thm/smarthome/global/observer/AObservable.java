@@ -1,5 +1,9 @@
 package de.thm.smarthome.global.observer;
 
+import de.thm.smarthome.global.beans.MeasureBean;
+import de.thm.smarthome.global.enumeration.EUnitOfMeasurement;
+
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
