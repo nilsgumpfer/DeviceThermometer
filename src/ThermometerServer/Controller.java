@@ -46,31 +46,10 @@ public class Controller {
 
 
     public void BTNServerStarten(ActionEvent event) throws IOException {
-        /*TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Name der Heizung definieren");
-        dialog.setHeaderText("Heizung anlegen");
-        dialog.setContentText("Bitte dieser Heizung einen Namen geben:");
-
-        if(!(lbl_Servername.getText().equals("-"))){
-
-        }
-        else{
-            Optional<String> result = dialog.showAndWait();
-            if(result.isPresent() == true && !result.get().equals("")){
-            lbl_Servername.setText(result.get());}
-            else{
-                return;
-            }
-        }*/
-
         if(thermo1 == null){
             thermo1 = new Thermometer();
         }
-       /* else{
-            thermo1 = new Thermometer();
-        }*/
-
-        ps = new PrintStream(new OutputStream() {
+       ps = new PrintStream(new OutputStream() {
 
             @Override
             public void write(int i) throws IOException {

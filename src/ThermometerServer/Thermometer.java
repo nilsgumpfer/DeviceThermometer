@@ -26,14 +26,15 @@ import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Created by Tim on 07.04.2017.
+ * Created on 07.04.2017.
  */
 
 
 
 public class Thermometer extends AObservable implements IObserver, ThermometerServerInterface {
 
-    /*Attribute/Beans*/
+    /*Attribute / Beans*/
+
     private MeasureBean temperature = new MeasureBean(0.0, EUnitOfMeasurement.TEMPERATURE_DEGREESCELSIUS);
     private ModelVariantBean modelVariant;
     private ManufacturerBean manufacturer;
@@ -42,6 +43,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
     private String serialNumber;
 
     /*Variable*/
+
     public String serverstatus = null;
     public int serverport = 1099;
     public Registry rmiRegistry;
@@ -55,19 +57,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
 
     }
 
-    /*public double getTemperatureSrv(){
-        return temperature;
-    }*/
-
-   /*public void setTemperatureSrv (double new_temp){
-        temperature = new_temp;
-        ThermometerTemperature.set(String.valueOf(temperature)+ " °C");
-        notifyObservers(this.temperature);
-   }*/
-
-
-
-    public String startServer() throws RemoteException {
+   public String startServer() throws RemoteException {
 
         serverIP = getServerIP();
         System.setProperty("java.rmi.server.hostname", serverIP);
@@ -77,14 +67,12 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
         }
         rmiRegistry = LocateRegistry.createRegistry(serverport);
         try {
-            /*if (System.getSecurityManager() == null) {
-                System.setProperty("java.security.policy", "file:C:\\Users\\Tim\\IdeaProjects\\HeizungServer\\out\\production\\HeizungServer\\HeizungServer\\server.policy");
-                System.setSecurityManager(new SecurityManager());
 
-            }*/
+
             /*Aktiviert und definiert das Logging des Servers*/
             RemoteServer.setLog(System.out);
-            //System.out.println(srvlog.toString());
+
+
             /*Bindet den Server an die folgende Adresse*/
             Naming.rebind("//127.0.0.1/"+genericName, this);
             this.serverstatus = "Gestartet";
@@ -119,12 +107,8 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
     public String stopServer(){
         try {
 
-            //Registry rmiRegistry = LocateRegistry.getRegistry("127.0.0.1", serverport);
-            //HeizungServerInterface myService = (HeizungServerInterface) rmiRegistry.lookup(heizungname);
-
             rmiRegistry.unbind(genericName);
 
-            //UnicastRemoteObject.unexportObject(myService, true);
             UnicastRemoteObject.unexportObject(rmiRegistry, true);
             this.serverstatus = "Gestoppt";
             return "Server ist gestoppt!";
@@ -165,6 +149,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
     }
 
     // GETTER//
+
     @Override
     public MeasureBean getTemperature() throws RemoteException {
         return temperature;
