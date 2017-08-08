@@ -35,6 +35,7 @@ public class Controller {
     private TextArea ta_srvlog;
     @FXML
     private Label lbl_currentTemp;
+
     @FXML
     private Button btn_setTemp;
 
@@ -89,6 +90,7 @@ public class Controller {
         lbl_Serverip.setText(thermo1.getServerIP());
         lbl_Servername.setText(thermo1.genericName);
         lbl_Serverstatus.setText(thermo1.serverstatus);
+
         lbl_currentTemp.textProperty().bind(thermo1.ThermometerTemperature);
 
         StringBuilder sb = new StringBuilder();
@@ -108,6 +110,8 @@ public class Controller {
         lbl_srvmsg.setText(thermo1.stopServer());
         lbl_Serverstatus.setText(thermo1.serverstatus);
 
+
+
         if (lbl_Serverstatus.getText() == "Gestoppt"){
             btn_stoppeServer.setDisable(true);
             btn_starteServer.setDisable(false);
@@ -124,10 +128,12 @@ public class Controller {
         if(result.isPresent() == true && !result.get().equals("")) {
             Double newTemp = Double.parseDouble(result.get());
             System.out.println(newTemp);
-            thermo1.setTemperature(newTemp);
+            thermo1.setTemperature(new MeasureBean(newTemp, thermo1.getTemperature().getUnitOfMeasurement_Enum()));
         }
         else{
             return;
         }
     }
-}
+
+
+   }

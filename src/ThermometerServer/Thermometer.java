@@ -34,7 +34,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class Thermometer extends AObservable implements IObserver, ThermometerServerInterface {
 
     /*Attribute/Beans*/
-    private MeasureBean temperature = new MeasureBean(20.0, EUnitOfMeasurement.TEMPERATURE_DEGREESCELSIUS);
+    private MeasureBean temperature = new MeasureBean(0.0, EUnitOfMeasurement.TEMPERATURE_DEGREESCELSIUS);
     private ModelVariantBean modelVariant;
     private ManufacturerBean manufacturer;
     private ActionModeBean actionMode;
@@ -49,7 +49,7 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
     private ThermometerServerInterface stub = null;
 
 
-    public StringProperty ThermometerTemperature = new SimpleStringProperty(String.valueOf(temperature) + "°C");
+    public StringProperty ThermometerTemperature = new SimpleStringProperty(String.valueOf(temperature.getMeasure_Double()) + " " + temperature.getUnitOfMeasurement_String());
 
     public Thermometer() {
 
@@ -65,17 +65,6 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
         notifyObservers(this.temperature);
    }*/
 
-    public void setTemperature (double new_temp){
-        temperature = new MeasureBean(new_temp, temperature.getUnitOfMeasurement_Enum());
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                ThermometerTemperature.set(String.valueOf(temperature) + " °C");
-            }
-        });
-
-        notifyObservers(this.temperature);
-    }
 
 
     public String startServer() throws RemoteException {
@@ -155,6 +144,27 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
 
     }
 
+    //SETTER//
+
+    public void setTemperature (MeasureBean new_temp){
+        temperature = new_temp;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                ThermometerTemperature.set(String.valueOf(temperature.getMeasure_Double()) + " " + temperature.getUnitOfMeasurement_String());
+            }
+        });
+
+        notifyObservers(this.temperature);
+    }
+
+
+    @Override
+    public void setGenericName(String new_genericName) throws RemoteException {
+        genericName = new_genericName;
+    }
+
+    // GETTER//
     @Override
     public MeasureBean getTemperature() throws RemoteException {
         return temperature;
@@ -185,8 +195,4 @@ public class Thermometer extends AObservable implements IObserver, ThermometerSe
         return serialNumber;
     }
 
-    @Override
-    public void setGenericName(String new_genericName) throws RemoteException {
-        genericName = new_genericName;
-    }
 }
